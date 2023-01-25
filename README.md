@@ -1,6 +1,4 @@
 # Global Chat Project
-[![Run on Repl.it](`https://urlshortener-microservice.mvlozano.repl.co/`)
-
 ## About
 Implementation for a Global Chat using Web Sockets.
 
