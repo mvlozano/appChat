@@ -36,7 +36,7 @@ app.get('/messages', (req, res) => {
     });
 });
 
-//Returns messages from the specified user
+//Returns all messages from the specified user
 app.get('/messages/:user', (req, res) => {
     const user = req.params.user;
     Message.find({ name: user }, (err, messages) => {
@@ -44,14 +44,16 @@ app.get('/messages/:user', (req, res) => {
     });
 });
 
-//Send a new message, saves it and emit the event message on the socket
+//Saves a new message and emit the event message on the socket
 app.post('/messages', async (req, res) => {
     try {
         let message = new Message(req.body);
         let savedMessage = await message.save();
         console.log('saved');
+        //Find censored word
         let censored = await Message.findOne({ message: 'badword' });
         if (censored) {
+            //Deletes censored word
             await Message.deleteOne({ _id: censored._id });
         } else {
             io.emit('message', req.body);

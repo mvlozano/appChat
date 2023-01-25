@@ -49,14 +49,14 @@
             $("#messages").append(`<h4>${message.name}</h4> <p>${message.message}</p>`);
         }
 
-        //Get request all messages
+        //Get all messages from the server
         function getMessages(){
             $.get('http://localhost:3000/messages',(data)=>{
                 data.forEach(addMessage,this);
             });
         }
 
-        //Post request a message
+        //Post a message to the server
         function postMessages(message){
             $.post('http://localhost:3000/messages',message);
         }
